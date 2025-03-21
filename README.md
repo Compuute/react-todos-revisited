@@ -1,8 +1,19 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/c0SAiifG)
-# Välkommen till inlämningsuppgiften Todos - Revisited
+# Todos - Revisited
 
-I denna inlämning har ni fått två projekt, ett hardhat-projekt som innehåller ett solidity-kontrakt och ett react-projekt som är er frontend. 
+## Project Overview
+This submission consists of two main projects:
+1. A Hardhat project containing Solidity contracts
+2. A React frontend application
 
-Titta i respektive projekts readme-filer för att få mer information om respektive projekt och vad ni förväntas göra. 
+## Project Structure
+- /hardhat - Smart contract development
+- /frontend - React application
 
-Stort lycka till!
+## Getting Started
+Please refer to the README files in each project directory.
+
+## Author
+Compuute
+
+---
+Original assignment by Medieinstitutet

@@ -37,3 +37,16 @@ export const addTodo = async (text) => {
     const tx = await contract.createTodo(text),
      await tx.wait();
     };
+
+
+//Växla status: klar/ inte klar
+export const toggleTodoStatus = async (id) => {
+    const tx = await contract.toggleTodo(id);
+    await tx.wait();
+};
+
+//Ta bort en todo
+export const deleteTodo = async (id) => {
+    const tx = await contract.removeTodo(id);
+    await tx.wait();
+};

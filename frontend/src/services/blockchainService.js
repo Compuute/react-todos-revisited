@@ -30,4 +30,10 @@ export const getTodos = async () => {
         }
     }
     return todos;
-}
+};
+
+//Lägg till en ny todo
+export const addTodo = async (text) => {
+    const tx = await contract.createTodo(text),
+     await tx.wait();
+    };

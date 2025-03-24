@@ -34,9 +34,9 @@ export const getTodos = async () => {
 
 //Lägg till en ny todo
 export const addTodo = async (text) => {
-    const tx = await contract.createTodo(text),
-     await tx.wait();
-    };
+    const tx = await contract.createTodo(text);
+    await tx.wait();
+};
 
 
 //Växla status: klar/ inte klar

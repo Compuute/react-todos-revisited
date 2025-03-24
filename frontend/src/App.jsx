@@ -8,7 +8,7 @@ import {
   toggleTodoStatus,
 } from "./services/blockchainService";
 import TodoForm from "./components/TodoForm";
-
+import TodoList from "./components/TodoList";
 function App() {
   const [todos, setTodos] = useState([]);
 
@@ -34,24 +34,11 @@ function App() {
     <div className="App">
       <h1>Todo List</h1>
       <TodoForm onAddTodo={handleAddTodo} />
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <span
-              onClick={() => toggleTodoStatus(todo.id).then(loadTodos)}
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none",
-                cursor: "pointer",
-              }}
-            >
-              {todo.text}
-            </span>
-            <button onClick={() => deleteTodo(todo.id).then(loadTodos)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      <TodoList
+        todos={todos}
+        onToggle={(id) => toggleTodoStatus(id).then(loadTodos)}
+        onDelete={(id) => deleteTodo(id).then(loadTodos)}
+      />
     </div>
   );
 }

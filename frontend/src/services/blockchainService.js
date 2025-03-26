@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
-import TodoList from "../contracts/TodoList.json";
-import contractAddress from "../contracts/contract-address.json";
-import TodoContract from "../contracts/TodoList.json";
+import TodoList from "../contracts/TodoList.json"; // ABI
+import contractAddresses from "../contracts/contract-address.json"; // Address från Ignition
 
 let contract;
 let signer;
@@ -11,17 +10,21 @@ export const initBlockchain = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     signer = await provider.getSigner();
-    contract = new ethers.Contract(
-      contractAddress.TodoList,
-      TodoContract.abi,
-      signer
-    );
+
+    const address = contractAddresses["TodosModule#TodoList"]; // Korrekt nyckel
+
+    contract = new ethers.Contract(address, TodoList.abi, signer);
+    console.log("Blockchain initialized", address);
   } else {
     alert("Please install MetaMask to use this app!");
   }
 };
-//Hämta alla todos från kontraktet
+
+// Hämta alla todos
 export const getTodos = async () => {
+  if (!contract) {
+    throw new Error("Contract not initialized");
+  }
   const todos = [];
   const count = await contract.todoCount();
   for (let i = 0; i < count; i++) {
@@ -37,20 +40,29 @@ export const getTodos = async () => {
   return todos;
 };
 
-//Lägg till en ny todo
+// Lägg till en ny todo
 export const addTodo = async (text) => {
+  if (!contract) {
+    throw new Error("Contract not initialized");
+  }
   const tx = await contract.createTodo(text);
   await tx.wait();
 };
 
-//Växla status: klar/ inte klar
+// Växla status
 export const toggleTodoStatus = async (id) => {
+  if (!contract) {
+    throw new Error("Contract not initialized");
+  }
   const tx = await contract.toggleTodo(id);
   await tx.wait();
 };
 
-//Ta bort en todo
+// Ta bort todo
 export const deleteTodo = async (id) => {
+  if (!contract) {
+    throw new Error("Contract not initialized");
+  }
   const tx = await contract.removeTodo(id);
   await tx.wait();
 };

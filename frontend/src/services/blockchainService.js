@@ -46,7 +46,9 @@ export const addTodo = async (text) => {
     throw new Error("Contract not initialized");
   }
   const tx = await contract.createTodo(text);
+  console.log("Transaction sent:", tx);
   await tx.wait();
+  console.log("Transaction confirmed");
 };
 
 // Växla status

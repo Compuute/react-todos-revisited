@@ -9,8 +9,10 @@ import {
 } from "./services/blockchainService";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+
 function App() {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loadTodos = async () => {
     const loadedTodos = await getTodos();
@@ -19,8 +21,14 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      await initBlockchain();
-      await loadTodos();
+      try {
+        await initBlockchain();
+        await loadTodos();
+      } catch (error) {
+        console.error("Error initializing blockchain:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     init();
   }, []);
@@ -33,12 +41,18 @@ function App() {
   return (
     <div className="App">
       <h1>Todo List</h1>
-      <TodoForm onAddTodo={handleAddTodo} />
-      <TodoList
-        todos={todos}
+      {loading ? (
+        <p>Loading blockchain...</p>
+      ) : (
+        <>
+          <TodoForm onAddTodo={handleAddTodo} />
+          <TodoList
+            todos={todos}
         onToggle={(id) => toggleTodoStatus(id).then(loadTodos)}
-        onDelete={(id) => deleteTodo(id).then(loadTodos)}
-      />
+            onDelete={(id) => deleteTodo(id).then(loadTodos)}
+          />
+        </>
+      )}
     </div>
   );
 }

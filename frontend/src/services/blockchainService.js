@@ -11,7 +11,7 @@ export const initBlockchain = async () => {
     await provider.send("eth_requestAccounts", []);
     signer = await provider.getSigner();
 
-    const address = contractAddresses["TodosModule#TodoList"]; // Korrekt nyckel
+    const address = contractAddresses["TodoList"]; // Korrekt nyckel
 
     contract = new ethers.Contract(address, TodoList.abi, signer);
     console.log("Blockchain initialized", address);

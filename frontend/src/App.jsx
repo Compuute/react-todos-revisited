@@ -12,7 +12,7 @@ import TodoList from "./components/TodoList";
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const loadTodos = async () => {
     const loadedTodos = await getTodos();
